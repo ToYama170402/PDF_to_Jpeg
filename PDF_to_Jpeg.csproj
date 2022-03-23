@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <ApplicationIcon>PDF_to_Jpeg_icon.ico</ApplicationIcon>
+    <Authors>ToYama</Authors>
+    <Company>FFR-Four Fource Studios</Company>
+    <Description>PDFファイルをPDF_to_JpegにD&amp;Dすると、そのPDFファイルと同じフォルダにそのPDFファイルの各ページのJPEGが出力されます’。</Description>
+    <Copyright></Copyright>
+    <PackageIcon>PDF_to_Jpeg_icon.png</PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FreeSpire.PDF" Version="8.2.0" />
+    <PackageReference Include="FreeSpire.XLS" Version="12.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="PDF_to_Jpeg_icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
