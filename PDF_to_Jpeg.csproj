@@ -11,6 +11,11 @@
     <PackageIcon>PDF_to_Jpeg_icon.png</PackageIcon>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="FreeSpire.PDF" Version="8.2.0" />
     <PackageReference Include="FreeSpire.XLS" Version="12.2.0" />
