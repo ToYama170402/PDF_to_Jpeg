@@ -1,37 +1,58 @@
 ﻿using System;
 using Spire.Pdf;
 using System.Drawing;
+using System.IO;
 
-namespace PDFtoJpeg
+namespace ConvertPDF
 {
     class Program
     {
         static void Main(string[] args)
         {
-            PdfDocument doc = new PdfDocument();
-            for (int i = 0; i < args.Length; i++)
+            ConvertPDF pdfto = new ConvertPDF();
+            //コマンドライン引数解析
+            int i = 0;
+            foreach (string str in args)
             {
-                Console.WriteLine("ファイルパス:" + args[i]);
+                bool boolFile = false;
 
-                //PDFファイルをロードします。
-                Console.WriteLine("ファイルを読み込み中");
-                doc.LoadFromFile(args[i]);
-
-                //総ページ数をカウント
-                int allPageNumber = doc.Pages.Count;
-                Console.WriteLine("総ページ数" + allPageNumber + "ページ");
-
-                //各ページを Jpegとして保存
-                Console.WriteLine("Jpegに変換中");
-                for (int j = 0; j < allPageNumber; j++)
+                if (File.Exists(str))
                 {
-                    Image bmp = doc.SaveAsImage(j);
-                    int pagenumber = j + 1;
-                    string jpgpath = args[i] + pagenumber + ".jpeg";
-                    string fileName = string.Format(jpgpath);
-                    bmp.Save(fileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    boolFile = true;
+                    string individualFileName = str;
+                    int individualDPI;
+                    string individualFileType;
+                    for (int j = 0; j < 5; i++)
+                    {
+                        int k = i + j;
+                        switch (args[k])
+                        {
+                            case "-dpi":
+                                int.TryParse(args[k++], out individualDPI);
+                                break;
+                            case "-to":
+                                individualFileType = args[k++];
+                                break;
+                        }
+                    }
                 }
+                else if (boolFile == false)
+                {
+                    switch (args[i])
+                    {
+                        case "-dpi":
+                            int localDPI;
+                            int.TryParse(args[i++], out localDPI);
+                            pdfto.loadDefault(localDPI);
+                            break;
+                        case "-to":
+                            pdfto.loadDefault(args[i++]);
+                            break;
+                    }
+                }
+                i++;
             }
+            pdfto.convertAll();
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Spire.Pdf;
 using System.Drawing;
 
-namespace PDFtoJpeg
+namespace ConvertPDF
 {
     //変換するファイルのフルパス、DPI、形式を保持
     public struct convertFile {
@@ -33,24 +33,34 @@ namespace PDFtoJpeg
             this.fileType = "png";
         }
     }
-    public class PDFtoJpeg
+    public class ConvertPDF
     {
-        List<convertFile> convertFile = new List<convertFile>();
-        defaultSetting defaultSetting;
+        public List<convertFile> convertFile = new List<convertFile>();
+        public defaultSetting defaultSetting;
         public void loadFile(List<convertFile> convertFiles)
         {
             convertFile = convertFiles;
         }
-        public void loadDefault()
+
+        public void loadDefault(int dpi)
         {
-            defaultSetting.dpi = 600;
-            defaultSetting.fileType = "png";
+            defaultSetting.dpi = dpi;
+        }
+
+        public void loadDefault(string fileType)
+        {
+            defaultSetting.fileType = fileType;
+        }
+        public void loadDefault(int dpi, string fileType)
+        {
+            defaultSetting.dpi = dpi;
+            defaultSetting.fileType = fileType;
         }
         public void addFile(string fileName, int dpi, string fileType)
         {
             convertFile.Add(new convertFile(fileName, dpi, fileType));
         }
-        public void convbertAll()
+        public void convertAll()
         {
             int fileN = convertFile.Count;
             PdfDocument pdfDocument = new PdfDocument();
