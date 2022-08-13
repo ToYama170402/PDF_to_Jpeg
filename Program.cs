@@ -2,7 +2,7 @@
 using Spire.Pdf;
 using System.Drawing;
 
-namespace PDF_to_Jpeg
+namespace PDFtoJpeg
 {
     class Program
     {
