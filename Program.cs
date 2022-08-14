@@ -10,31 +10,36 @@ namespace ConvertPDF
         static void Main(string[] args)
         {
             ConvertPDF pdfto = new ConvertPDF();
+            bool boolFile = false;
             //コマンドライン引数解析
             int i = 0;
             foreach (string str in args)
             {
-                bool boolFile = false;
-
                 if (File.Exists(str))
                 {
                     boolFile = true;
                     string individualFileName = str;
-                    int individualDPI;
-                    string individualFileType;
-                    for (int j = 0; j < 5; i++)
+                    int individualDPI = 600;
+                    string individualFileType = "png";
+                    for (int j = 0; j < 5; j++)
                     {
                         int k = i + j;
-                        switch (args[k])
+                        if (args.Length > k)
                         {
-                            case "-dpi":
-                                int.TryParse(args[k++], out individualDPI);
-                                break;
-                            case "-to":
-                                individualFileType = args[k++];
-                                break;
+                            switch (args[k])
+                            {
+                                case "-dpi":
+                                    int.TryParse(args[k + 1], out individualDPI);
+                                    break;
+                                case "-to":
+                                    individualFileType = args[k + 1];
+                                    break;
+                            }
                         }
+
                     }
+                    pdfto.addFile(individualFileName, individualDPI, individualFileType);
+
                 }
                 else if (boolFile == false)
                 {

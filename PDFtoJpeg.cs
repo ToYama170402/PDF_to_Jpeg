@@ -60,24 +60,37 @@ namespace ConvertPDF
         {
             convertFile.Add(new convertFile(fileName, dpi, fileType));
         }
+        public void addFile(string fileName)
+        {
+            convertFile.Add(new convertFile(fileName, defaultSetting.dpi, defaultSetting.fileType));
+        }
+        public void addFile(string fileName, int dpi)
+        {
+            convertFile.Add(new convertFile(fileName, dpi, defaultSetting.fileType));
+        }
+        public void addFile(string fileName, string fileType)
+        {
+            convertFile.Add(new convertFile(fileName, defaultSetting.dpi, fileType));
+        }
         public void convertAll()
         {
             int fileN = convertFile.Count;
             PdfDocument pdfDocument = new PdfDocument();
-            for (int i = 0; i < fileN; i++)
+
+            foreach (convertFile converts in convertFile)
             {
-                pdfDocument.LoadFromFile(convertFile[i].fileName);
+                pdfDocument.LoadFromFile(converts.fileName);
                 int pageN = pdfDocument.Pages.Count;
-                for (int j = 0; i < pageN; i++)
+                for (int j = 0; j < pageN; j++)
                 {
                     Image image = pdfDocument.SaveAsImage(j);
                     int pageNumber = j + 1;
-                    string path = convertFile[i].fileName + pageNumber + ".jpeg";
+                    string path = converts.fileName + pageNumber + "." + converts.fileType;
                     path = string.Format(path);
                     System.Drawing.Imaging.ImageFormat imageFormat;
-                    if (convertFile[i].fileType != null)
+                    if (converts.fileType != null)
                     {
-                        imageFormat = switchImgFormat(convertFile[i].fileType);
+                        imageFormat = switchImgFormat(converts.fileType);
                     }
                     else
                     {
@@ -87,6 +100,30 @@ namespace ConvertPDF
 
                 }
             }
+
+            //for (int i = 0; i < fileN + 1; i++)
+            //{
+            //    pdfDocument.LoadFromFile(convertFile[i].fileName);
+            //    int pageN = pdfDocument.Pages.Count;
+            //    for (int j = 0; j < pageN; j++)
+            //    {
+            //        Image image = pdfDocument.SaveAsImage(j);
+            //        int pageNumber = j + 1;
+            //        string path = convertFile[i].fileName + pageNumber + ".jpeg";
+            //        path = string.Format(path);
+            //        System.Drawing.Imaging.ImageFormat imageFormat;
+            //        if (convertFile[i].fileType != null)
+            //        {
+            //            imageFormat = switchImgFormat(convertFile[i].fileType);
+            //        }
+            //        else
+            //        {
+            //            imageFormat = switchImgFormat(defaultSetting.fileType);
+            //        }
+            //        image.Save(path, imageFormat);
+
+            //    }
+            //}
         }
         private System.Drawing.Imaging.ImageFormat switchImgFormat(string fileType)
         {
