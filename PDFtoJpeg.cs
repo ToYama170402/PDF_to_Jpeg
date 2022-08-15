@@ -100,30 +100,6 @@ namespace ConvertPDF
 
                 }
             }
-
-            //for (int i = 0; i < fileN + 1; i++)
-            //{
-            //    pdfDocument.LoadFromFile(convertFile[i].fileName);
-            //    int pageN = pdfDocument.Pages.Count;
-            //    for (int j = 0; j < pageN; j++)
-            //    {
-            //        Image image = pdfDocument.SaveAsImage(j);
-            //        int pageNumber = j + 1;
-            //        string path = convertFile[i].fileName + pageNumber + ".jpeg";
-            //        path = string.Format(path);
-            //        System.Drawing.Imaging.ImageFormat imageFormat;
-            //        if (convertFile[i].fileType != null)
-            //        {
-            //            imageFormat = switchImgFormat(convertFile[i].fileType);
-            //        }
-            //        else
-            //        {
-            //            imageFormat = switchImgFormat(defaultSetting.fileType);
-            //        }
-            //        image.Save(path, imageFormat);
-
-            //    }
-            //}
         }
         private System.Drawing.Imaging.ImageFormat switchImgFormat(string fileType)
         {
