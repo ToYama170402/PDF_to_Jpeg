@@ -19,7 +19,6 @@ namespace ConvertPDF
                 {
                     boolFile = true;
                     string individualFileName = str;
-                    int individualDPI = 600;
                     string individualFileType = "png";
                     for (int j = 0; j < 5; j++)
                     {
@@ -28,9 +27,6 @@ namespace ConvertPDF
                         {
                             switch (args[k])
                             {
-                                case "-dpi":
-                                    int.TryParse(args[k + 1], out individualDPI);
-                                    break;
                                 case "-to":
                                     individualFileType = args[k + 1];
                                     break;
@@ -38,18 +34,13 @@ namespace ConvertPDF
                         }
 
                     }
-                    pdfto.addFile(individualFileName, individualDPI, individualFileType);
+                    pdfto.addFile(individualFileName, individualFileType);
 
                 }
                 else if (boolFile == false)
                 {
                     switch (args[i])
                     {
-                        case "-dpi":
-                            int localDPI;
-                            int.TryParse(args[i++], out localDPI);
-                            pdfto.loadDefault(localDPI);
-                            break;
                         case "-to":
                             pdfto.loadDefault(args[i++]);
                             break;

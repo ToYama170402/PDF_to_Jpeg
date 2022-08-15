@@ -8,28 +8,24 @@ using System.Drawing;
 
 namespace ConvertPDF
 {
-    //変換するファイルのフルパス、DPI、形式を保持
+    //変換するファイルのフルパス、形式を保持
     public struct convertFile {
         public string fileName;
-        public int dpi;
         public string fileType;
 
-        public convertFile(string fileName, int dpi, string fileType)
+        public convertFile(string fileName, string fileType)
         {
             this.fileName = fileName;
-            this.dpi = dpi;
             this.fileType = fileType;
         }
     }
 
-    //デフォルトのDPI、ファイル形式保持
+    //デフォルトのファイル形式保持
     public struct defaultSetting
     {
-        public int dpi;
         public string fileType;
         public defaultSetting(int dpi,string fileType)
         {
-            this.dpi = 600;
             this.fileType = "png";
         }
     }
@@ -42,35 +38,17 @@ namespace ConvertPDF
             convertFile = convertFiles;
         }
 
-        public void loadDefault(int dpi)
-        {
-            defaultSetting.dpi = dpi;
-        }
-
         public void loadDefault(string fileType)
         {
             defaultSetting.fileType = fileType;
         }
-        public void loadDefault(int dpi, string fileType)
+        public void addFile(string fileName, string fileType)
         {
-            defaultSetting.dpi = dpi;
-            defaultSetting.fileType = fileType;
-        }
-        public void addFile(string fileName, int dpi, string fileType)
-        {
-            convertFile.Add(new convertFile(fileName, dpi, fileType));
+            convertFile.Add(new convertFile(fileName, fileType));
         }
         public void addFile(string fileName)
         {
-            convertFile.Add(new convertFile(fileName, defaultSetting.dpi, defaultSetting.fileType));
-        }
-        public void addFile(string fileName, int dpi)
-        {
-            convertFile.Add(new convertFile(fileName, dpi, defaultSetting.fileType));
-        }
-        public void addFile(string fileName, string fileType)
-        {
-            convertFile.Add(new convertFile(fileName, defaultSetting.dpi, fileType));
+            convertFile.Add(new convertFile(fileName, defaultSetting.fileType));
         }
         public void convertAll()
         {
