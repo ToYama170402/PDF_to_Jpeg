@@ -25,14 +25,13 @@ PDF_to_Jpeg.exe (-to <ファイル形式>) <ファイル名>　(-to <ファイ�
   - bmp
   - gif
   - tiff
-### 例
-'''
+```
 PDF_to_Jpeg.exe hoge.pdf
-'''
+```
 hoge.pdfがhoge<ページ番号>.pngに変換される。
-'''
+```
 -PDF_to_Jpeg.exe -to jpeg hoge.pdf hoge2.pdf -to gif
-'''
+```
 hoge.pdfはhoge<ページ番号>.jpegに変換され、hoge2.pdfはhoge2<ページ番号>.gifに変換される。
 
 #出力ファイル名
