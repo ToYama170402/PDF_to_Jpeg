@@ -1,8 +1,7 @@
 {
   "profiles": {
     "PDF_to_Jpeg": {
-      "commandName": "Project",
-      "commandLineArgs": "\"Z:\\ToYama\\Documents\\スキー　レク\\2021-12-14-001.pdf\" -dpi 10  -to jpeg"
+      "commandName": "Project"
     }
   }
 }
