@@ -1,19 +1,16 @@
-﻿using System;
+﻿using Spire.Pdf;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Spire.Pdf;
 using System.Drawing;
 
 namespace ConvertPDF
 {
     //変換するファイルのフルパス、形式を保持
-    public struct convertFile {
+    public struct ConvertFile
+    {
         public string fileName;
         public string fileType;
 
-        public convertFile(string fileName, string fileType)
+        public ConvertFile(string fileName, string fileType)
         {
             this.fileName = fileName;
             this.fileType = fileType;
@@ -21,41 +18,40 @@ namespace ConvertPDF
     }
 
     //デフォルトのファイル形式保持
-    public struct defaultSetting
+    public struct DefaultSetting
     {
         public string fileType;
-        public defaultSetting(int dpi,string fileType)
+        public DefaultSetting(string fileType)
         {
-            this.fileType = "png";
+            this.fileType = fileType;
         }
     }
     public class ConvertPDF
     {
-        public List<convertFile> convertFile = new List<convertFile>();
-        public defaultSetting defaultSetting;
-        public void loadFile(List<convertFile> convertFiles)
+        public List<ConvertFile> convertFile = new();
+        public DefaultSetting defaultSetting;
+        public void LoadFile(List<ConvertFile> convertFiles)
         {
             convertFile = convertFiles;
         }
 
-        public void loadDefault(string fileType)
+        public void LoadDefault(string fileType)
         {
             defaultSetting.fileType = fileType;
         }
-        public void addFile(string fileName, string fileType)
+        public void AddFile(string fileName, string fileType)
         {
-            convertFile.Add(new convertFile(fileName, fileType));
+            convertFile.Add(new ConvertFile(fileName, fileType));
         }
-        public void addFile(string fileName)
+        public void AddFile(string fileName)
         {
-            convertFile.Add(new convertFile(fileName, defaultSetting.fileType));
+            convertFile.Add(new ConvertFile(fileName, defaultSetting.fileType));
         }
-        public void convertAll()
+        public void ConvertAll()
         {
-            int fileN = convertFile.Count;
-            PdfDocument pdfDocument = new PdfDocument();
+            PdfDocument pdfDocument = new();
 
-            foreach (convertFile converts in convertFile)
+            foreach (ConvertFile converts in convertFile)
             {
                 pdfDocument.LoadFromFile(converts.fileName);
                 int pageN = pdfDocument.Pages.Count;
@@ -68,35 +64,28 @@ namespace ConvertPDF
                     System.Drawing.Imaging.ImageFormat imageFormat;
                     if (converts.fileType != null)
                     {
-                        imageFormat = switchImgFormat(converts.fileType);
+                        imageFormat = SwitchImgFormat(converts.fileType);
                     }
                     else
                     {
-                        imageFormat = switchImgFormat(defaultSetting.fileType);
+                        imageFormat = SwitchImgFormat(defaultSetting.fileType);
                     }
                     image.Save(path, imageFormat);
 
                 }
             }
         }
-        private System.Drawing.Imaging.ImageFormat switchImgFormat(string fileType)
+        private static System.Drawing.Imaging.ImageFormat SwitchImgFormat(string fileType)
         {
-            switch (fileType)
+            return fileType switch
             {
-                case "jpeg":
-                    return System.Drawing.Imaging.ImageFormat.Jpeg;
-                case "png":
-                    return System.Drawing.Imaging.ImageFormat.Png;
-                case "bmp":
-                    return System.Drawing.Imaging.ImageFormat.Bmp;
-                case "gif":
-                    return System.Drawing.Imaging.ImageFormat.Gif;
-                case "tiff":
-                    return System.Drawing.Imaging.ImageFormat.Tiff;
-                default:
-                    return System.Drawing.Imaging.ImageFormat.Png;
-
-            }
+                "jpeg" => System.Drawing.Imaging.ImageFormat.Jpeg,
+                "png" => System.Drawing.Imaging.ImageFormat.Png,
+                "bmp" => System.Drawing.Imaging.ImageFormat.Bmp,
+                "gif" => System.Drawing.Imaging.ImageFormat.Gif,
+                "tiff" => System.Drawing.Imaging.ImageFormat.Tiff,
+                _ => System.Drawing.Imaging.ImageFormat.Png,
+            };
         }
     }
 }

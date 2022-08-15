@@ -1,7 +1,4 @@
-﻿using System;
-using Spire.Pdf;
-using System.Drawing;
-using System.IO;
+﻿using System.IO;
 
 namespace ConvertPDF
 {
@@ -9,7 +6,7 @@ namespace ConvertPDF
     {
         static void Main(string[] args)
         {
-            ConvertPDF pdfto = new ConvertPDF();
+            ConvertPDF pdfto = new();
             bool boolFile = false;
             //コマンドライン引数解析
             int i = 0;
@@ -34,7 +31,7 @@ namespace ConvertPDF
                         }
 
                     }
-                    pdfto.addFile(individualFileName, individualFileType);
+                    pdfto.AddFile(individualFileName, individualFileType);
 
                 }
                 else if (boolFile == false)
@@ -42,13 +39,13 @@ namespace ConvertPDF
                     switch (args[i])
                     {
                         case "-to":
-                            pdfto.loadDefault(args[i++]);
+                            pdfto.LoadDefault(args[i++]);
                             break;
                     }
                 }
                 i++;
             }
-            pdfto.convertAll();
+            pdfto.ConvertAll();
         }
     }
 }
